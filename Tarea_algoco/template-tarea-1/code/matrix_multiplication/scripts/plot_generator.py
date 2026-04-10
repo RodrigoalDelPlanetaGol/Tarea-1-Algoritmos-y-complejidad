@@ -2,14 +2,6 @@
 
 Lee el CSV generado por code/matrix_multiplication/matrix_multiplication.cpp y crea PNGs.
 
-Uso sugerido:
-    python plot_generator.py --csv ../data/measurements/matrix_measurements.csv --out ../plots/matrix_multiplication
-
-Salida esperada:
-    - tiempo_ms_vs_n.png
-    - tiempo_ms_loglog.png
-    - memoria_kb_vs_n.png
-
 Notas:
 - Si el CSV no contiene 'tiempo_ms', lo calcula desde 'tiempo_us'.
 - Usa 'filas_a' como tamaño n (matrices cuadradas).
@@ -55,7 +47,6 @@ def load_measurements(csv_path: Path) -> pd.DataFrame:
 
     df = pd.read_csv(csv_path)
 
-    # Normalización mínima por si cambian nombres de columnas.
     rename_map = {}
     if "algorithm" in df.columns and "algoritmo" not in df.columns:
         rename_map["algorithm"] = "algoritmo"
@@ -77,7 +68,6 @@ def load_measurements(csv_path: Path) -> pd.DataFrame:
     if "algoritmo" not in df.columns:
         raise ValueError("El CSV debe contener la columna 'algoritmo'.")
 
-    # El script usa filas_a como n, porque las matrices son cuadradas.
     if "filas_a" not in df.columns:
         raise ValueError("El CSV debe contener la columna 'filas_a' para inferir n.")
 
@@ -177,12 +167,10 @@ def plot_memory_by_n(df: pd.DataFrame, out_dir: Path) -> None:
 
 
 def plot_time_by_group(df: pd.DataFrame, out_dir: Path) -> None:
-    # Agrupación opcional si el CSV trae columnas descriptivas.
     group_columns = [c for c in ["algoritmo", "n"] if c in df.columns]
     if len(group_columns) != 2:
         return
 
-    # Si existen columnas extra, guardamos un gráfico más detallado.
     for extra_col in ["disposicion", "tipo_datos"]:
         if extra_col not in df.columns:
             continue
@@ -219,9 +207,6 @@ def plot_time_by_group(df: pd.DataFrame, out_dir: Path) -> None:
 
 def main() -> None:
     args = parse_args()
-
-    # El script vive en: code/matrix_multiplication/scripts/plot_generator.py
-    # Queremos guardar siempre dentro de: code/matrix_multiplication/data/plots/
     script_dir = Path(__file__).resolve().parent
     project_dir = script_dir.parent
     forced_out = project_dir / "data" / "plots" / "matrix_multiplication"

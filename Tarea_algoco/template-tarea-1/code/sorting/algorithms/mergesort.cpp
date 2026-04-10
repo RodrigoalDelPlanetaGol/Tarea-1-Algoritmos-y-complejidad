@@ -1,4 +1,4 @@
-//fuente: https://www.geeksforgeeks.org/dsa/merge-sort/
+//Codigo extraido de: https://www.geeksforgeeks.org/dsa/merge-sort/
 
 #include <iostream>
 #include <vector>

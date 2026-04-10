@@ -1,6 +1,5 @@
-//fuente: https://www.geeksforgeeks.org/dsa/quicksort-using-random-pivoting/
-//este programa deja los comentarios en inglés que están en el original
-//pero incluye las librerias de 'vector' y 'utility'
+//Código extraido de: https://www.geeksforgeeks.org/dsa/quicksort-using-random-pivoting/
+//Moficaciones: incluye las librerias de 'vector' y 'utility'
 //además de la firma de 'quickSortArray'
 
 // C++ implementation QuickSort

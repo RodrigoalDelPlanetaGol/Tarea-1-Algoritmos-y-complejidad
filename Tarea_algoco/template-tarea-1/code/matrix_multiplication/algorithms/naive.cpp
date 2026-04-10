@@ -1,4 +1,4 @@
-//fuente: https://www.geeksforgeeks.org/dsa/strassens-matrix-multiplication-algorithm-implementation/
+//Código extraido de: https://www.geeksforgeeks.org/dsa/strassens-matrix-multiplication-algorithm-implementation/
 
 // CPP program to implement Strassen’s Matrix
 // Multiplication Algorithm

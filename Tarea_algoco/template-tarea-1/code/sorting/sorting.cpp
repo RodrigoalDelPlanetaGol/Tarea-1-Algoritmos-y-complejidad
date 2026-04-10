@@ -25,15 +25,7 @@
 //   3) Ejecuta los 3 algoritmos sobre COPIAS del mismo arreglo
 //   4) Guarda cada arreglo ordenado en la carpeta de salida
 //   5) Guarda todas las mediciones en un solo CSV
-//
-// IMPORTANTE:
-//   - Revisa que las firmas de tus algoritmos sean:
-//       std::vector<int> mergeSortArray(std::vector<int>& arr);
-//       std::vector<int> quickSortArray(std::vector<int>& arr);
-//       std::vector<int> sortArray(std::vector<int>& arr);
-//   - Si cambiaste nombres, actualiza las declaraciones y llamadas
-//     más abajo.
-//   - Si tu ruta de proyecto cambia, ajusta BASE_DIR.
+
 // ============================================================
 
 namespace fs = std::filesystem;
@@ -67,19 +59,16 @@ struct Medicion {
 };
 
 // ------------------------------------------------------------
-// Ajusta aquí tus rutas si tu estructura cambia
+// Rutas
 // ------------------------------------------------------------
-static const fs::path BASE_DIR = R"(C:/Users/Equipo/Desktop/Tarea algoco/template-tarea-1/code/sorting/data)";
+static const fs::path BASE_DIR = fs::path("data");
 static const fs::path CARPETA_ENTRADA = BASE_DIR / "array_input";
 static const fs::path CARPETA_SALIDA = BASE_DIR / "array_output";
 static const fs::path CARPETA_MEDICIONES = BASE_DIR / "measurements";
 static const fs::path ARCHIVO_CSV = CARPETA_MEDICIONES / "sorting_measurements.csv";
 
 // ------------------------------------------------------------
-// Extraer metadatos desde el nombre del archivo
-// Formato esperado:
-//   10_aleatorio_D1_a.txt
-//   100_ordenado_D7_b.txt
+// Extrae metadatos desde el nombre del archivo
 // ------------------------------------------------------------
 static MetadatosArchivo extraer_metadatos_del_nombre(const fs::path& ruta) {
     MetadatosArchivo meta;
@@ -98,8 +87,7 @@ static MetadatosArchivo extraer_metadatos_del_nombre(const fs::path& ruta) {
 }
 
 // ------------------------------------------------------------
-// Leer el arreglo del .txt
-// El archivo contiene solo enteros separados por espacios.
+// Lee el arreglo del .txt
 // ------------------------------------------------------------
 static std::vector<int> leer_arreglo_txt(const fs::path& ruta) {
     std::ifstream entrada(ruta);
@@ -117,10 +105,7 @@ static std::vector<int> leer_arreglo_txt(const fs::path& ruta) {
 }
 
 // ------------------------------------------------------------
-// Escribir arreglo ordenado en .txt
-// Formato usado:
-//   primera línea: cantidad de elementos
-//   segunda línea: elementos separados por espacios
+// Escribe arreglo ordenado en .txt
 // ------------------------------------------------------------
 static void escribir_arreglo_txt(const fs::path& ruta, const std::vector<int>& arreglo) {
     std::ofstream salida(ruta, std::ios::trunc);
@@ -140,8 +125,6 @@ static void escribir_arreglo_txt(const fs::path& ruta, const std::vector<int>& a
 
 // ------------------------------------------------------------
 // Medición de memoria
-// En Windows usamos GetProcessMemoryInfo.
-// En Linux usamos getrusage.
 // ------------------------------------------------------------
 #ifdef _WIN32
 static long long memoria_actual_kb() {

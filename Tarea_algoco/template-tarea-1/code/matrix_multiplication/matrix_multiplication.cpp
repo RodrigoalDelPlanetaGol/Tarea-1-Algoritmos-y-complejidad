@@ -27,20 +27,9 @@
 //   - guardar matrices resultado en data/matrix_output/
 //   - escribir mediciones en data/measurements/
 //
-// Formato esperado de archivo:
-//   16_densa_D0_a_1.txt   -> matriz izquierda
-//   16_densa_D0_a_2.txt   -> matriz derecha
-//
-// Contenido del archivo:
-//   n x n números enteros separados por espacios y/o saltos de línea.
-//   El tamaño se obtiene desde el nombre del archivo.
-//
-// IMPORTANTE:
-//   - Este archivo usa implementaciones vectoriales de naive y Strassen
-//     para que el driver pueda llamarlas directamente.
-//   - Si quieres conservar tus archivos originales separados, puedes
-//     dejarlos como referencia, pero este driver necesita una firma
-//     reutilizable.
+// Formato de los archivos txt:
+//   16_densa_D0_a_1.txt   1 quiere decir que es la matriz izquierda
+//   16_densa_D0_a_2.txt   2 quiere decir que es la matriz derecha
 // ============================================================
 
 namespace fs = std::filesystem;
@@ -48,7 +37,7 @@ using Reloj = std::chrono::high_resolution_clock;
 using Matriz = std::vector<std::vector<long long>>;
 
 // ------------------------------------------------------------
-// Ajusta aquí tus rutas si tu estructura cambia
+// Rutas
 // ------------------------------------------------------------
 static const fs::path BASE_DIR = fs::path("data");
 static const fs::path CARPETA_ENTRADA = BASE_DIR / "matrix_input";
@@ -132,7 +121,6 @@ static MetadatosArchivo extraer_metadatos_del_nombre(const fs::path& ruta) {
 
 // ------------------------------------------------------------
 // Lectura de matrices
-// Se asume una matriz n x n con n tomado del nombre del archivo.
 // ------------------------------------------------------------
 static Matriz leer_matriz_txt(const fs::path& ruta, std::size_t n) {
     std::ifstream entrada(ruta);
@@ -271,7 +259,7 @@ static Matriz matrix_multiply_naive(const Matriz& A, const Matriz& B) {
 }
 
 // ------------------------------------------------------------
-// Strassen recursivo con padding
+// Strassen recursivo
 // ------------------------------------------------------------
 static Matriz strassen_rec(const Matriz& A, const Matriz& B) {
     const std::size_t n = A.size();
@@ -520,7 +508,7 @@ int main(int argc, char* argv[]) {
             return 0;
         }
 
-        // Agrupar por caso (n, disposición, tipo, distinguidor)
+        // Aqui agrupa por caso (n, disposición, tipo, distinguidor)
         std::map<ClaveCaso, std::pair<fs::path, fs::path>> pares;
         for (const auto& a : archivos) {
             const ClaveCaso key = clave_de(a.meta);
