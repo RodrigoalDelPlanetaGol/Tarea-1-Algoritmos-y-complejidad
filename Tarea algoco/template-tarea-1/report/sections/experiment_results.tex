@@ -2,14 +2,70 @@
     \textbf{La extensión máxima para esta sección es de 4 páginas.} Si utiliza menos páginas y explica bien sus resultados, es preferible.
 \end{mdframed}
 
-Presente sus resultados mediante \textbf{tablas y gráficos}. Cada tabla o gráfico debe estar referenciado en el texto, con una breve descripción de lo que se observa y por qué es relevante.
+\subsection{Sorting}
 
-\textbf{Es necesario automatizar la generación de las gráficas}, ya que es imprescindible que se pueda confirmar que las visualizaciones presentadas son producto de los datos generados por sus algoritmos.
+La Figura~\ref{fig:sorting_tiempo} muestra el tiempo de ordenamiento en función del tamaño del arreglo. Se observa que, al aumentar $n$, el tiempo de ejecución crece de manera consistente en los tres algoritmos. En particular, \textit{quick sort} presenta el mejor desempeño general, seguido por \texttt{std::sort}, mientras que \textit{merge sort} alcanza los tiempos más altos en los tamaños grandes.  
 
-Escoja las gráficas más representativas y que muestren de manera clara los resultados obtenidos. Esta elección es parte de lo que se evaluará en la sección de presentación de resultados.
+La Figura~\ref{fig:sorting_loglog} presenta los mismos resultados en escala logarítmica. La tendencia aproximadamente lineal de las curvas es coherente con el comportamiento asintótico esperado de los algoritmos evaluados. Esta representación es útil porque permite comparar de forma más clara la velocidad de crecimiento del tiempo al aumentar el tamaño de entrada.
 
+La Figura~\ref{fig:sorting_distribuciones} compara el tiempo de ejecución según la disposición del arreglo. Allí se aprecia que \textit{quick sort} es sensible a la distribución de los datos, aunque sigue manteniéndose por debajo de \textit{merge sort} en la mayoría de los casos. \textit{Merge sort}, por su parte, exhibe un comportamiento más estable entre las distintas disposiciones, aunque con un costo temporal mayor. \texttt{std::sort} se mantiene como una alternativa competitiva, especialmente en tamaños pequeños y medianos.
 
+Finalmente, la Figura~\ref{fig:sorting_memoria} muestra el uso de memoria en función de $n$. En esta medición, \textit{merge sort} presenta un crecimiento más visible del consumo de memoria, mientras que \textit{quick sort} y \texttt{std::sort} muestran variaciones menores. Esto concuerda con el hecho de que \textit{merge sort} requiere estructuras auxiliares adicionales durante el proceso de mezcla.
 
-\begin{mdframed}
-    Recuerde que es imprescindible que se pueda replicar la generación de las gráficas, por lo que usted debe referir a las figuras generadas en `code/matrix\_multiplication/data/plots/` y `code/sorting/data/plots/`.
-\end{mdframed}
+\subsection{Multiplicación de matrices}
+
+La Figura~\ref{fig:matrices_tiempo} presenta el tiempo de ejecución de la multiplicación de matrices en función del tamaño. Se observa que tanto la versión \textit{naive} como la versión de Strassen incrementan su tiempo a medida que crece $n$. Sin embargo, la ventaja práctica de Strassen no se separa de manera muy fuerte en todos los tamaños probados, lo que sugiere que el costo constante de la recursión y de las operaciones auxiliares sigue siendo relevante en la implementación.
+
+En la Figura~\ref{fig:matrices_loglog} se visualiza la evolución en escala logarítmica. Ambas curvas se mantienen relativamente cercanas, lo que indica que, para los tamaños evaluados, la mejora teórica de Strassen no siempre se traduce en una ventaja claramente dominante en la práctica.
+
+La Figura~\ref{fig:matrices_memoria} muestra el consumo de memoria. En este caso, Strassen utiliza más memoria que la versión \textit{naive}, lo cual es esperable debido a la creación de submatrices y estructuras auxiliares durante la recursión. Este resultado refuerza la idea de que la optimización temporal de Strassen viene acompañada de un mayor costo espacial.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.9\textwidth]{code/sorting/data/plots/sorting/tiempo_ms_vs_n.png}
+    \caption{Tiempo de ordenamiento en función del tamaño del arreglo.}
+    \label{fig:sorting_tiempo}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.9\textwidth]{code/sorting/data/plots/sorting/tiempo_ms_loglog.png}
+    \caption{Tiempo de ordenamiento en escala log-log.}
+    \label{fig:sorting_loglog}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    % Reemplazar por el nombre real del gráfico de distribuciones si difiere
+    \includegraphics[width=0.9\textwidth]{code/sorting/data/plots/sorting/tiempo_ms_vs_n_aleatoria.png}
+    \caption{Tiempo de ordenamiento para una de las disposiciones de entrada.}
+    \label{fig:sorting_distribuciones}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.9\textwidth]{code/sorting/data/plots/sorting/memoria_kb_vs_n.png}
+    \caption{Uso de memoria en función del tamaño del arreglo.}
+    \label{fig:sorting_memoria}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.9\textwidth]{code/matrix_multiplication/data/plots/matrix_multiplication/tiempo_ms_vs_n.png}
+    \caption{Tiempo de multiplicación de matrices en función del tamaño.}
+    \label{fig:matrices_tiempo}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.9\textwidth]{code/matrix_multiplication/data/plots/matrix_multiplication/tiempo_ms_loglog.png}
+    \caption{Tiempo de multiplicación de matrices en escala log-log.}
+    \label{fig:matrices_loglog}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.9\textwidth]{code/matrix_multiplication/data/plots/matrix_multiplication/memoria_kb_vs_n.png}
+    \caption{Uso de memoria en función del tamaño de la matriz.}
+    \label{fig:matrices_memoria}
+\end{figure}

@@ -1,17 +1,9 @@
-# Compilador (forzado a MinGW64)
-CXX = /mingw64/bin/g++
-
-# Flags de compilación
+CXX ?= g++
 CXXFLAGS = -std=c++17 -O2 -Wall -Wextra -pedantic
-
-# Nombre del ejecutable
 TARGET = matrix_multiplication.exe
-
-# Archivo fuente
 SRC = matrix_multiplication.cpp
 
-# Reglas
-.PHONY: all run clean rebuild
+.PHONY: all run clean
 
 all: $(TARGET)
 
@@ -23,5 +15,3 @@ run: $(TARGET)
 
 clean:
 	rm -f $(TARGET)
-
-rebuild: clean all
